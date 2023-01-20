@@ -44,6 +44,7 @@ router.get('/', (req, res, next) => {
 
 // GET: Retrieves a resource.
 router.get('/:id', (req, res, next) => {
+        const end = histogram.startTimer();
         var x = dbs.GetIdReq(req.params.id);
         if (x == undefined) {
             //res.status(404).end();
@@ -51,7 +52,15 @@ router.get('/:id', (req, res, next) => {
         }
         else {
             res.json(x);
+            
         }
+        res.on('finish', () =>
+            end({
+            method: req.method,
+            handler: new URL(req.url, `http://${req.hostname}`).pathname,
+            code: res.statusCode,
+            })
+        );
     });
 
 // POST:  Creates a new resource.
