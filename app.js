@@ -14,6 +14,7 @@ var rt_index = require('./routes/index');
 var rt_order = require('./routes/order');
 var rt_product = require('./routes/product');
 var rt_customer = require('./routes/customer');
+var rt_metrics = require('./routes/metric.js');
 
 
 // Wiring up middleware, this must be  before calling any routes
@@ -28,6 +29,7 @@ app.use('/', rt_index);
 app.use('/v1/order', rt_order);
 app.use('/v1/product', rt_product);
 app.use('/v1/customer', rt_customer);
+app.use('/metrics', rt_metrics);
 
 
 // Wiring up error handler middleware, this must be after the routes
@@ -59,6 +61,7 @@ console.log("API Access:");
 console.log(`http://localhost:${port}/v1/order`);
 console.log(`http://localhost:${port}/v1/product`);
 console.log(`http://localhost:${port}/v1/order`);
+console.log(`http://localhost:${port}/metrics`);
 console.log();
 
 // console.log(`http://localhost:${port}/api-docs`);
